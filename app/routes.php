@@ -13,5 +13,9 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	// return View::make('hello');
+
+	$entries = Entry::all();
+	return $entries;
+
 });
