@@ -20,7 +20,8 @@ Clone this repository and run the following commands:
 
 	make
 	mysql -u root -proot -e 'create database if not exists liked'
-	cp .env.local.sample.php .env.local.php
+	cp env.local.sample.php .env.local.php
+	php artisan migrate
 	make test
 
 Load sample data (optional for demo):
@@ -48,6 +49,7 @@ Supported Services
 * [Last FM](http://www.last.fm)
 * [Pandora](http://www.pandora.com)
 * [Instapaper](http://www.instapaper.com)
+* [Embedly Extract API](http://embed.ly/extract)
 
 
 
