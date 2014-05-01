@@ -1,11 +1,15 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "pwenzel/liked",
+	"description": "Collect things you like and aggregate them.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+		"fastfeed/fastfeed": "dev-master"
 	},
+	"require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },	
 	"autoload": {
 		"classmap": [
 			"app/commands",
