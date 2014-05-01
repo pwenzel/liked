@@ -3,6 +3,8 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Entry;
+use FastFeed\Factory;
 
 class ImportPandora extends Command {
 
@@ -37,7 +39,28 @@ class ImportPandora extends Command {
 	 */
 	public function fire()
 	{
-		$this->info('This command is not yet complete.');
+
+		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=10';
+		$this->info("Loading feed $feed");
+
+		$fastFeed = Factory::create();
+		$fastFeed->addFeed('pandora_favorites', $feed);
+
+		// TODO: Cache 
+		$items = $fastFeed->fetch('pandora_favorites');
+
+		foreach ($items as $item) {
+			
+			$entry = Entry::firstOrCreate( array('url' => $item->getId(), 'title' => $item->getName() ) );
+
+			if($entry) {
+				$this->info('Imported ' . $item->getId());
+			} else {
+				$this->error('Failed to import ' . $item->getId());
+			}
+
+		}
+
 	}
 
 	/**
