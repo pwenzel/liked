@@ -40,7 +40,7 @@ class ImportPandora extends Command {
 	public function fire()
 	{
 
-		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=1';
+		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=';
 		$this->info("Loading feed $feed");
 
 		$fastFeed = Factory::create();
@@ -54,32 +54,30 @@ class ImportPandora extends Command {
 		foreach ($items as $item) {
 
 			$entry = Entry::firstOrCreate( array(
-				'url' => $item->getId(), 
-				'title' => $item->getName(),
-				'pubdate' => $item->getDate(),
+				'url' => $item->getId(),
 			));
-
-			if($entry) {
-				$this->info('Imported ' . $entry->url);
-			} else {
-				$this->error('Failed to import ' . $item->getId());
-			}
 
 			$meta = \Cache::remember('embedly_'.$feed, 60, function() use ($entry)
 			{
 			    $embedly = new \Embedly\Embedly(array(
-			    'key' => $_SERVER['EMBEDLY_API_KEY'],
-			    'user_agent' => 'Mozilla/5.0 (compatible; liked/1.0)'
+				    'key' => $_SERVER['EMBEDLY_API_KEY'],
+				    'user_agent' => 'Mozilla/5.0 (compatible; liked/1.0)'
 				));
-				$meta = $embedly->extract(array(
+				
+				return $embedly->extract(array(
 				    'urls' => array($entry->url)
 				));
-
-				return $meta;
 			});
 
-			print_r($meta);
+			$entry->title = $item->getName();
+			$entry->pubdate = $item->getDate();
+			$entry->favicon = $meta[0]->favicon_url;
 
+			if($entry->save()) {
+				$this->info('Imported ' . $entry->url);
+			} else {
+				$this->error('Failed to import ' . $item->getId());
+			}
 
 		}
 
