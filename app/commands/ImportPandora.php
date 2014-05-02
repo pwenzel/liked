@@ -40,24 +40,46 @@ class ImportPandora extends Command {
 	public function fire()
 	{
 
-		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=10';
+		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=1';
 		$this->info("Loading feed $feed");
 
 		$fastFeed = Factory::create();
 		$fastFeed->addFeed('pandora_favorites', $feed);
 
-		// TODO: Cache 
-		$items = $fastFeed->fetch('pandora_favorites');
+		$items = \Cache::remember($feed, 60, function() use ($fastFeed)
+		{
+		    return $fastFeed->fetch('pandora_favorites');
+		});
 
 		foreach ($items as $item) {
-			
-			$entry = Entry::firstOrCreate( array('url' => $item->getId(), 'title' => $item->getName() ) );
+
+			$entry = Entry::firstOrCreate( array(
+				'url' => $item->getId(), 
+				'title' => $item->getName(),
+				'pubdate' => $item->getDate(),
+			));
 
 			if($entry) {
-				$this->info('Imported ' . $item->getId());
+				$this->info('Imported ' . $entry->url);
 			} else {
 				$this->error('Failed to import ' . $item->getId());
 			}
+
+			$meta = \Cache::remember('embedly_'.$feed, 60, function() use ($entry)
+			{
+			    $embedly = new \Embedly\Embedly(array(
+			    'key' => $_SERVER['EMBEDLY_API_KEY'],
+			    'user_agent' => 'Mozilla/5.0 (compatible; liked/1.0)'
+				));
+				$meta = $embedly->extract(array(
+				    'urls' => array($entry->url)
+				));
+
+				return $meta;
+			});
+
+			print_r($meta);
+
 
 		}
 

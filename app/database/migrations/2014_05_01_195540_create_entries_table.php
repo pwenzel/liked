@@ -16,7 +16,7 @@ class CreateEntriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
-			$table->dateTime('date_saved')->nullable();
+			$table->dateTime('pubdate')->nullable();
 			$table->string('url');
 			$table->mediumText('title')->nullable();
 			$table->text('description')->nullable();

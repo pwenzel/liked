@@ -3,6 +3,6 @@
 class Entry extends Eloquent {
 
     protected $table = 'entries';
-    protected $fillable = array('url', 'title', 'description');
+    protected $fillable = array('url', 'title', 'description', 'pubdate');
 
 }
