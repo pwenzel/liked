@@ -72,6 +72,7 @@ class ImportPandora extends Command {
 			$entry->title = $item->getName();
 			$entry->pubdate = $item->getDate();
 			$entry->favicon = $meta[0]->favicon_url;
+			$entry->description = $meta[0]->description;
 
 			if($entry->save()) {
 				$this->info('Imported ' . $entry->url);
