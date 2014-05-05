@@ -5,8 +5,6 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"fastfeed/fastfeed": "dev-master",
-		"vinelab/rss": "dev-master",
 		"embedly/embedly-php": "dev-master"
 	},
 	"require-dev": {

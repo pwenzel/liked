@@ -4,7 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Entry;
-use FastFeed\Factory;
+use SimpleXmlElement;
 
 class ImportPandora extends Command {
 
@@ -36,6 +36,10 @@ class ImportPandora extends Command {
 	 * Execute the console command.
 	 *
 	 * @return mixed
+	 * 
+	 * @link http://stackoverflow.com/questions/14383782/parsing-rss-xml-in-php-with-namespaces
+	 * @link http://blog.sherifmansour.com/?p=302
+	 * @link http://www.sitepoint.com/simplexml-and-namespaces/
 	 */
 	public function fire()
 	{
@@ -45,41 +49,44 @@ class ImportPandora extends Command {
 		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=' . $max;
 		$this->info("Loading feed $feed");
 
-		$fastFeed = Factory::create();
-		$fastFeed->addFeed('pandora_favorites', $feed);
-
-		$items = \Cache::remember($feed, 60, function() use ($fastFeed)
+		$xml = \Cache::remember($feed, 60, function() use ($feed)
 		{
-		    return $fastFeed->fetch('pandora_favorites');
+		    $this->info("Uncached.");
+			return file_get_contents($feed);
 		});
+
+		$xml = new SimpleXmlElement($xml);
+		$items = $xml->channel->item;
 
 		foreach ($items as $item) {
 
 			$entry = Entry::firstOrCreate( array(
-				'url' => $item->getId(),
+				'url' => $item->link,
 			));
 
-			$meta = \Cache::remember('embedly_'.$feed, 60, function() use ($entry)
-			{
-			    $embedly = new \Embedly\Embedly(array(
-				    'key' => $_SERVER['EMBEDLY_API_KEY'],
-				    'user_agent' => 'Mozilla/5.0 (compatible; liked/1.0)'
-				));
-				
-				return $embedly->extract(array(
-				    'urls' => array($entry->url)
-				));
-			});
+			$ns_pandora = $item->children('http://www.pandora.com/rss/1.0/modules/pandora/');
 
-			$entry->title = $item->getName();
-			$entry->pubdate = $item->getDate();
-			$entry->favicon = $meta[0]->favicon_url;
-			$entry->description = $meta[0]->description;
+			// $meta = \Cache::remember('embedly_'.$feed, 60, function() use ($item)
+			// {
+			//     $embedly = new \Embedly\Embedly(array(
+			// 	    'key' => $_SERVER['EMBEDLY_API_KEY'],
+			// 	    'user_agent' => 'Mozilla/5.0 (compatible; liked/1.0)'
+			// 	));
+				
+			// 	return $embedly->extract(array(
+			// 	    'urls' => array($item->url)
+			// 	));
+			// });
+
+			$entry->title = $item->title;
+			$entry->pubdate = $item->pubdate; // TODO: Not saving properly because not a date object
+			$entry->description = $item->description;
+			$entry->image = $ns_pandora->albumArtUrl;
 
 			if($entry->save()) {
 				$this->info('Imported ' . $entry->url);
 			} else {
-				$this->error('Failed to import ' . $item->getId());
+				$this->error('Failed to import ' . $item->link);
 			}
 
 		}
