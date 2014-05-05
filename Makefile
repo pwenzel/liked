@@ -17,7 +17,7 @@ refresh:
 import:
 	@./artisan import:instapaper && ./artisan import:pandora
 
-dependencies:
+dependencies: public/assets/zurb
 
 ifdef YOUR_COMPOSER_VERSION
 	composer install
@@ -26,3 +26,11 @@ else
 	@curl -sS https://getcomposer.org/installer | php -- --install-dir=./
 	./composer.phar install 
 endif
+
+public/assets/zurb:
+	mkdir -p public/assets/zurb && rm -rf public/assets/zurb/*
+	curl --output public/assets/zurb/foundation.zip http://foundation.zurb.com/cdn/releases/foundation-5.2.2.zip
+	cd public/assets/zurb && unzip foundation.zip && rm foundation.zip
+
+clean:
+	rm -rf public/assets/zurb vendor

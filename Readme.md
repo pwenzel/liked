@@ -50,7 +50,33 @@ Supported Services
 * [Pandora](http://www.pandora.com)
 * [Instapaper](http://www.instapaper.com)
 * [Embedly Extract API](http://embed.ly/extract)
+* [Readability API](https://www.readability.com/developers/api)
 
+
+Vendor Dependencies
+-------------------
+
+* [Laravel](http://www.laravel.com)
+* [Requests for PHP](http://requests.ryanmccue.info)
+* [Zurb Foundation](http://foundation.zurb.com)
+
+
+Updating Dependencies
+---------------------
+
+Update PHP libraries with Composer
+
+	composer update
+
+Update Zurb Foundation
+
+	make clean
+	make public/assets/zurb
+
+Purge Dependencies and Re-install
+
+	make clean
+	make install
 
 
 [1]: http://laravel.com/docs/installation#server-requirements "Laravel Server Requirements"
