@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Entry;
 use SimpleXmlElement;
+use DateTime;
 
 class ImportPandora extends Command {
 
@@ -79,7 +80,7 @@ class ImportPandora extends Command {
 			// });
 
 			$entry->title = $item->title;
-			$entry->pubdate = $item->pubdate; // TODO: Not saving properly because not a date object
+			$entry->pubdate = DateTime::createFromFormat(DateTime::RSS, $item->pubDate);
 			$entry->description = $item->description;
 			$entry->image = $ns_pandora->albumArtUrl;
 
