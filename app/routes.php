@@ -17,6 +17,7 @@ Route::get('/', function()
 	$entries = DB::table('entries')
 	->select('liked_date as date', 'url', 'title', 'description', 'image')
     ->orderBy('date', 'desc')
+    ->take(50)
     ->get();
 
     // return $entries;
