@@ -22,7 +22,7 @@ class CreateEntriesTable extends Migration {
 			$table->mediumText('title')->nullable();
 			$table->text('description')->nullable();
 			$table->text('content')->nullable();
-			$table->dateTime('article_date')->nullable();
+			$table->dateTime('date_published')->nullable();
 			$table->text('keywords')->nullable();
 			$table->text('entities')->nullable();
 			$table->text('image')->nullable();

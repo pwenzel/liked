@@ -12,6 +12,8 @@ return array(
     'LASTFM_USERNAME'				=> '',
     'INSTAPAPER_USERNAME'			=> '',
     'EMBEDLY_API_KEY'				=> '',
+    'READABILITY_API_KEY'			=> '',
+    'READABILITY_PARSE_API_KEY'		=> '',
     'INSTAPAPER_STARRED_RSS_URL'	=> '',
     'DATABASE'						=> '',
     'DATABASE_USERNAME'				=> '',
