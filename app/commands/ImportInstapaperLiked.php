@@ -45,8 +45,6 @@ class ImportInstapaperLiked extends Command {
 	public function fire()
 	{
 
-		$max = filter_var($this->option('max'), FILTER_VALIDATE_INT);
-
 		$feed = $_SERVER['INSTAPAPER_STARRED_RSS_URL'];
 		$this->info("Loading feed $feed");
 
