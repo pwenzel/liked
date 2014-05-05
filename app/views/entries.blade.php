@@ -19,10 +19,24 @@
 			  	{{ $entry->title }}
 		  	</a>
 	  	</h3>
-		
-		<blockquote>
-			{{ $entry->description or 'No Excerpt' }}
-		</blockquote>
+
+	  	<div class="row">
+
+	  	@if($entry->image)
+	  		<div class="large-2 columns">
+	  			<a class="th" href="{{ $entry->image }}">
+				  <img src="{{ $entry->image }}">
+				</a>
+	  		</div>
+	  	@endif
+	  		
+	  		<div class="large-10 columns">
+	  			<p>
+					{{ $entry->description or 'No Excerpt' }}
+				</p>
+	  		</div>
+
+	  	</div>
 
 	</article>
 
