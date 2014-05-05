@@ -40,7 +40,9 @@ class ImportPandora extends Command {
 	public function fire()
 	{
 
-		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=';
+		$max = filter_var($this->option('max'), FILTER_VALIDATE_INT);
+
+		$feed = 'http://feeds.pandora.com/feeds/people/'. $_SERVER['PANDORA_USERNAME'] .'/favorites.xml?max=' . $max;
 		$this->info("Loading feed $feed");
 
 		$fastFeed = Factory::create();
@@ -85,27 +87,15 @@ class ImportPandora extends Command {
 	}
 
 	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	// protected function getArguments()
-	// {
-	// 	return array(
-	// 		array('example', InputArgument::REQUIRED, 'An example argument.'),
-	// 	);
-	// }
-
-	/**
 	 * Get the console command options.
 	 *
 	 * @return array
 	 */
-	// protected function getOptions()
-	// {
-	// 	return array(
-	// 		array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-	// 	);
-	// }
+	protected function getOptions()
+	{
+		return array(
+			array('max', null, InputOption::VALUE_OPTIONAL, 'Maximum number of items to import.', null),
+		);
+	}
 
 }
