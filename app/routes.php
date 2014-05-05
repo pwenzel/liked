@@ -13,9 +13,12 @@
 
 Route::get('/', function()
 {
-	// return View::make('hello');
 
-	$entries = Entry::all();
-	return $entries;
+	$entries = DB::table('entries')
+	->select('liked_date as date', 'url', 'title', 'description', 'image')
+    ->orderBy('date', 'desc')
+    ->get();
+
+    return $entries;
 
 });

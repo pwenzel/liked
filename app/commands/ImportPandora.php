@@ -81,7 +81,7 @@ class ImportPandora extends Command {
 
 			$entry->title = $item->title;
 			$entry->guid = $item->guid;
-			$entry->pubdate = DateTime::createFromFormat(DateTime::RSS, $item->pubDate);
+			$entry->liked_date = DateTime::createFromFormat(DateTime::RSS, $item->pubDate);
 			$entry->description = $item->description;
 			$entry->image = $ns_pandora->albumArtUrl;
 

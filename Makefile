@@ -1,7 +1,7 @@
 YOUR_COMPOSER_VERSION := $(shell composer --version 2>/dev/null)
 
 help:
-	@echo 'make [install|test|deploy]'
+	@echo 'make [install|test|deploy|refresh|import]'
 
 install: dependencies
 
@@ -10,6 +10,12 @@ deploy:
 
 test:
 	vendor/bin/phpunit
+
+refresh:
+	@./artisan migrate:refresh
+
+import:
+	@./artisan import:instapaper && ./artisan import:pandora
 
 dependencies:
 
