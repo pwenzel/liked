@@ -19,6 +19,7 @@ Route::get('/', function()
     ->orderBy('date', 'desc')
     ->get();
 
-    return $entries;
+    // return $entries;
+    return View::make('entries', array('entries' => $entries));
 
 });
