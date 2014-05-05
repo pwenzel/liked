@@ -8,12 +8,13 @@
 
 return array(
 
-    'PANDORA_USERNAME'		=> '',
-    'LASTFM_USERNAME'		=> '',
-    'INSTAPAPER_USERNAME'	=> '',
-    'EMBEDLY_API_KEY'		=> '',
-    'DATABASE'				=> '',
-    'DATABASE_USERNAME'		=> '',
-	'DATABASE_PASSWORD'		=> '',
+    'PANDORA_USERNAME'				=> '',
+    'LASTFM_USERNAME'				=> '',
+    'INSTAPAPER_USERNAME'			=> '',
+    'EMBEDLY_API_KEY'				=> '',
+    'INSTAPAPER_STARRED_RSS_URL'	=> '',
+    'DATABASE'						=> '',
+    'DATABASE_USERNAME'				=> '',
+	'DATABASE_PASSWORD'				=> '',
 
 );

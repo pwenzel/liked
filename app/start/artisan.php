@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new \Liked\ImportPandora);
+Artisan::add(new \Liked\ImportInstapaperLiked);
