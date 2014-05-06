@@ -1,6 +1,6 @@
 <html>
 <head>
-	<link rel="stylesheet" href="/assets/zurb/css/foundation.css" />
+	<link rel="stylesheet" href="/assets/vendor/zurb-foundation/css/foundation.min.css" />
 </head>
     <body>
         <main class="container">

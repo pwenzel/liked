@@ -1,7 +1,7 @@
 {
     "name": "Liked",
     "dependencies": {
-        "zurb-foundation-bower": "*"
+        "zurb-foundation": "https://github.com/zurb/bower-foundation.git"
     },
     "homepage": "https://github.com/pwenzel/liked",
     "authors": [
