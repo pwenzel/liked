@@ -9,10 +9,10 @@ test:
 	vendor/bin/phpunit
 
 refresh:
-	@./artisan migrate:refresh
+	@php artisan migrate:refresh
 
 import:
-	@./artisan import:instapaper && ./artisan import:pandora
+	@php artisan import:instapaper && php artisan import:pandora
 
 clean:
 	rm -rf public/assets/vendor vendor
