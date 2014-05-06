@@ -20,7 +20,10 @@ Route::get('/', function()
 	//     ->orderBy('datum','desc')
 	//     ->paginate(5);
 
+	// $lastWeek = Carbon::now()->subWeek();
 	$entries = Entry::orderBy('liked_date', 'DESC')->paginate(10);
+	// $entries = Entry::where('liked_date' > $lastWeek);
+	// return $entries;
 
     return View::make('entries', compact('entries'));
 
