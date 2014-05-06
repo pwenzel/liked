@@ -14,13 +14,15 @@
 Route::get('/', function()
 {
 
-	$entries = DB::table('entries')
-	->select('liked_date as date', 'url', 'title', 'description', 'image')
-    ->orderBy('date', 'desc')
-    ->take(50)
-    ->get();
+	// example from http://stackoverflow.com/questions/20146938/laravel-group-data-by-datecreated-at-with-pagination
+	// $days = Pic::select(DB::raw('DATE(created_at) as datum'))
+	//     ->distinct()
+	//     ->orderBy('datum','desc')
+	//     ->paginate(5);
 
-    // return $entries;
-    return View::make('entries', array('entries' => $entries));
+	$entries = Entry::orderBy('liked_date', 'DESC')->paginate(10);
+	$entries->load('title', 'liked_date');
+
+    return View::make('entries', compact('entries'));
 
 });
