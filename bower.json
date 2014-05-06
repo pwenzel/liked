@@ -1,0 +1,18 @@
+{
+    "name": "Liked",
+    "dependencies": {
+        "zurb-foundation-bower": "*"
+    },
+    "homepage": "https://github.com/pwenzel/liked",
+    "authors": [
+        "Paul Wenzel"
+    ],
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}

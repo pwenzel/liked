@@ -12,6 +12,7 @@ Liked is based on [Laravel](http://www.laravel.com), and incures the same [serve
 
 * PHP >= 5.3.7
 * MySQL, SQLite or other [databases supported by Laravel][2]
+* [Bower](http://bower.io)
 
 Installation
 ------------
@@ -68,12 +69,13 @@ Update PHP libraries with Composer
 
 	composer update
 
-Update Zurb Foundation
 
-	make clean
-	make public/assets/zurb
+Update front-end libraries with Bower
 
-Purge Dependencies and Re-install
+	bower update
+	
+
+Purge PHP and Front-End Dependencies and Re-install
 
 	make clean
 	make install
