@@ -20,10 +20,13 @@ Route::get('/', function()
 	//     ->orderBy('datum','desc')
 	//     ->paginate(5);
 
-	// $lastWeek = Carbon::now()->subWeek();
-	$entries = Entry::orderBy('liked_date', 'DESC')->paginate(10);
+	// http://stackoverflow.com/questions/14346431/laravel-eloquent-and-comparing-dates
+	$lastWeek = Carbon::now()->subWeek();
+	// $entries = Entry::orderBy('liked_date', 'DESC')->paginate(10);
 	// $entries = Entry::where('liked_date' > $lastWeek);
 	// return $entries;
+
+	$entries = Entry::where('liked_date', '>=',$lastWeek)->get();
 
     return View::make('entries', compact('entries'));
 
