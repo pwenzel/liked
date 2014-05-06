@@ -67,7 +67,7 @@ class ImportInstapaperLiked extends Command {
 
 			$api = 'https://readability.com/api/content/v1/parser?url=' . $item->link . '&token=' . $_SERVER['READABILITY_PARSE_API_KEY'];
 
-			$meta = \Cache::remember($api, 60, function() use ($item, $api)
+			$meta = \Cache::rememberForever($api, function() use ($item, $api)
 			{
 			    $this->info("Uncached request to $api");
 	
