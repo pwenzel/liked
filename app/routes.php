@@ -21,7 +21,6 @@ Route::get('/', function()
 	//     ->paginate(5);
 
 	$entries = Entry::orderBy('liked_date', 'DESC')->paginate(10);
-	$entries->load('title', 'liked_date');
 
     return View::make('entries', compact('entries'));
 
