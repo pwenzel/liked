@@ -57,7 +57,7 @@ class ImportWordpressWXR extends Command {
 
 		foreach ($items as $item) {
 
-			$entry = Entry::firstOrCreate( array(
+			$entry = Entry::firstOrNew( array(
 				'url' => $item->link,
 			));
 

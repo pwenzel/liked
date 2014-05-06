@@ -17,7 +17,7 @@ class CreateEntriesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->dateTime('liked_date')->nullable();
-			$table->string('url')->unique();
+			$table->string('url', 2000);
 			$table->string('guid')->nullable();
 			$table->mediumText('title')->nullable();
 			$table->text('description')->nullable();
