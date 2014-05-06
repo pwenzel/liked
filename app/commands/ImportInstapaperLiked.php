@@ -86,8 +86,12 @@ class ImportInstapaperLiked extends Command {
 			$entry->liked_date = DateTime::createFromFormat(DateTime::RSS, $item->pubDate);
 
 			// Readabilty Excerpt
-			$entry->description = (empty($meta->excerpt)) ? null : $meta->excerpt;
-
+			if(isset($meta->dek) && !empty($meta->dek)) {
+				$entry->description = $meta->dek;
+			} elseif (isset($meta->excerpt) && !empty($meta->excerpt)) {
+				$entry->description = $meta->excerpt;
+			}
+			
 			// Readability Article Date
 			$entry->date_published = (empty($meta->date_published)) ? null : DateTime::createFromFormat('Y-m-d g:i:s', $meta->date_published);
 
