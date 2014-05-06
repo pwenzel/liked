@@ -12,24 +12,24 @@ Liked is based on [Laravel](http://www.laravel.com), and incures the same [serve
 
 * PHP >= 5.3.7
 * MySQL, SQLite or other [databases supported by Laravel][2]
-* [Bower](http://bower.io)
+
+[Bower](http://bower.io) is required for installation of front-end dependencies.
 
 Installation
 ------------
 
 Clone this repository and run the following commands:
 
-	make
+	make install
 	mysql -u root -proot -e 'create database if not exists liked'
 	cp env.local.sample.php .env.local.php
 	php artisan migrate
-	make test
-
-Load sample data (optional for demo):
-
-	php artisan db:seed
 
 Put your usernames and other configuration options in `.env.local.php`.
+
+~~Load sample data (optional for demonstration purposes):~~
+
+~~`php artisan db:seed`~~
 
 
 Usage
@@ -38,6 +38,7 @@ Usage
 Import bookmarks and other saved content from providers like so:
 
 	php artisan import:pandora
+	php artisan import:instapaper
 
 View your web site locally at [http://localhost:8000](http://localhost:8000):
 
@@ -50,7 +51,7 @@ Supported Services
 * [Last FM](http://www.last.fm)
 * [Pandora](http://www.pandora.com)
 * [Instapaper](http://www.instapaper.com)
-* [Embedly Extract API](http://embed.ly/extract)
+* ~~[Embedly Extract API](http://embed.ly/extract)~~
 * [Readability API](https://www.readability.com/developers/api)
 
 
@@ -69,13 +70,11 @@ Update PHP libraries with Composer
 
 	composer update
 
-
 Update front-end libraries with Bower
 
 	bower update
 	
-
-Purge PHP and Front-End Dependencies and Re-install
+Purge Dependencies and Reinstall
 
 	make clean
 	make install
