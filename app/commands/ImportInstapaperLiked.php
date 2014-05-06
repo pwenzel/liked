@@ -71,7 +71,7 @@ class ImportInstapaperLiked extends Command {
 			{
 			    $this->info("Uncached request to $api");
 	
-			    $response = Requests::get($api);
+			    $response = Requests::get($api, array(), array('timeout' => 20)); // Define a timeout of 20 seconds
 
 				if($response->success) {
 					return json_decode($response->body);
